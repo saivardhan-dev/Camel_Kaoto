@@ -1,0 +1,63 @@
+- beans:
+    - name: myAggregationStrategy
+      type: org.apache.camel.processor.aggregate.UseLatestAggregationStrategy
+
+- route:
+    id: route-order-generator
+    from:
+      uri: timer
+      parameters:
+        timerName: orderTimer
+        period: "10000"
+      steps:
+        - setBody:
+            expression:
+              constant:
+                expression: "<orders><order><id>1</id><item>Laptop</item><qty>2</qty></order><order><id>2</id><item>Mouse</item><qty>5</qty></order><order><id>3</id><item>Keyboard</item><qty>3</qty></order></orders>"
+        - split:
+            expression:
+              xpath:
+                expression: "//order"
+            steps:
+              - log:
+                  message: "Splitting order: ${body}"
+              - to:
+                  uri: "activemq:queue:orders.inbound"
+
+- route:
+    id: route-item-enricher
+    from:
+      uri: "activemq:queue:orders.inbound"
+      steps:
+        - to:
+            uri: xslt
+            parameters:
+              resourceUri: "file:/Users/saivardhanreddynarra/Desktop/Camel Kaoto/enrich.xslt"
+        - setHeader:
+            name: orderStatus
+            expression:
+              simple:
+                expression: "PROCESSED"
+        - log:
+            message: "Enriched order: ${body} | Status: ${header.orderStatus}"
+        - to:
+            uri: "activemq:queue:orders.processed"
+
+- route:
+    id: route-aggregator
+    from:
+      uri: "activemq:queue:orders.processed"
+      steps:
+        - aggregate:
+            correlationExpression:
+              constant:
+                expression: "all-orders"
+            completionSize: 3
+            aggregationStrategy: myAggregationStrategy
+            steps:
+              - log:
+                  message: "Aggregated batch ready: ${body}"
+              - to:
+                  uri: "file:/Users/saivardhanreddynarra/Desktop/Camel Kaoto/output"
+                  parameters:
+                    fileName: "orders-${date:now:yyyyMMdd-HHmmss}.xml"
