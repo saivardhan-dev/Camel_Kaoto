@@ -1,18 +1,18 @@
 # Camel_Kaoto
 
-# 🔀 Apache Camel Kaoto — Multi-Route Integration Demo
+# Apache Camel Kaoto — Multi-Route Integration Demo
 
 > A visual Apache Camel integration project built with **Kaoto** (VS Code), **JBang**, and **ActiveMQ**, demonstrating a multi-route order processing pipeline using core Enterprise Integration Patterns.
 
 ---
 
-## 🎨 What is Kaoto?
+## What is Kaoto?
  
 **Kaoto** is a visual, no-code / low-code editor for Apache Camel routes, built as a VS Code extension and backed by Red Hat. It is the officially recommended graphical designer for Apache Camel, allowing developers to build, visualize, and run integration flows without writing YAML or XML from scratch.
  
 > *"Kaoto is a no-code / low-code editor for Apache Camel integrations. Using Kaoto will lower the barrier for integration developers to get started with Apache Camel."* — KaotoIO GitHub
  
-### 🔧 What Kaoto Does
+### What Kaoto Does
  
 | Feature | Description |
 |---|---|
@@ -31,7 +31,7 @@
  
 ---
  
-## ⚖️ Kaoto (Visual / JBang) vs Apache Camel with Spring Boot (Coding)
+## Kaoto (Visual / JBang) vs Apache Camel with Spring Boot (Coding)
  
 This is the most important architectural decision when starting a Camel project.
  
@@ -144,7 +144,7 @@ No Maven project. No Spring Boot boilerplate. Just a YAML file and JBang.
 - **Not production-ready standalone** — For serious production deployments, you still need to export to Spring Boot or Quarkus
 ---
  
-## 🔩 How `.process()` Works in Kaoto
+## How `.process()` Works in Kaoto
  
 In Apache Camel's **Java DSL** with Spring Boot, you implement custom message processing using the `Processor` interface:
  
@@ -235,7 +235,7 @@ Camel_Kaoto/
 
 ---
 
-## 🔄 The Integration Flow
+## The Integration Flow
 
 This project implements a **multi-route order processing pipeline** using three core Enterprise Integration Patterns:
 
@@ -271,7 +271,7 @@ This project implements a **multi-route order processing pipeline** using three 
 
 ---
 
-## 🗂️ Route Details
+## Route Details
 
 ### Route 1 — Order Generator
 - A **Timer** triggers every 10 seconds
@@ -291,7 +291,7 @@ This project implements a **multi-route order processing pipeline** using three 
 
 ---
 
-## 📐 Enterprise Integration Patterns Used
+## Enterprise Integration Patterns Used
 
 | Pattern | Where Used |
 |---|---|
@@ -303,7 +303,7 @@ This project implements a **multi-route order processing pipeline** using three 
 
 ---
 
-## 🔁 XSLT Transformation
+## XSLT Transformation
 
 The `enrich.xslt` transforms each raw order item:
 
@@ -328,7 +328,7 @@ The `enrich.xslt` transforms each raw order item:
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 **1. Install JBang**
 ```bash
